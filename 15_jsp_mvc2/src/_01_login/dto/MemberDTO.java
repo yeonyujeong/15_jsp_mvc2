@@ -41,11 +41,12 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFiled() {
+	
+	public String getField() {
 		return field;
 	}
-	public void setFiled(String filed) {
-		this.field = filed;
+	public void setField(String field) {
+		this.field = field;
 	}
 	public String getSkill() {
 		return skill;

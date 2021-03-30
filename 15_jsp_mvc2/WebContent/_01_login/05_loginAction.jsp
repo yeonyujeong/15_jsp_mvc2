@@ -11,7 +11,7 @@
 	<c:choose>
 		<c:when test="${isLogin eq true }">
 			<script>
-				alert("${sessionScope.menuId}님 환영합니다~!");
+				alert("${sessionScope.memId}님 환영합니다~!");
 				location.href="main.do";
 			</script>		
 		</c:when>

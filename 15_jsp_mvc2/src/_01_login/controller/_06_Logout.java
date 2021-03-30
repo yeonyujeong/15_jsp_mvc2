@@ -10,33 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-@WebServlet("/main.do")
-public class _01_main extends HttpServlet {
+@WebServlet("/logout.do")
+public class _06_Logout extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);
 	}
-
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("memId");
-		request.setAttribute("id", id);
+		session.invalidate();
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/01_main.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/06_logout.jsp");
 		dis.forward(request, response);
 		
-		
-		
-		
 	}
-	
-	
-	
+
 }

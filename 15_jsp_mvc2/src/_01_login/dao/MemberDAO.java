@@ -108,10 +108,112 @@ public class MemberDAO {
 		}
 		
 		return isLogin;
-		
-		
+
 	}
 	
-	
+
+	 // 3. 회원정보 수정 DAO
+   public void updateMember(String id, MemberDTO mdto) {
+       
+   	try {
+           conn = getConnection();
+           pstmt = conn.prepareStatement("UPDATE MEMBER SET PW=?, NAME=?, TEL=?, EMAIL=?, FIELD=?, SKILL=?, MAJOR=? WHERE ID=?");
+           pstmt.setString(1, mdto.getPw());
+           pstmt.setString(2, mdto.getName());
+           pstmt.setString(3, mdto.getTel());
+           pstmt.setString(4, mdto.getEmail());
+           pstmt.setString(5, mdto.getField());
+           pstmt.setString(6, mdto.getSkill());
+           pstmt.setString(7, mdto.getMajor());
+           pstmt.setString(8, id);
+           pstmt.executeUpdate();
+           
+       } catch(Exception e) {
+           e.printStackTrace();
+       } finally {
+       	if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
+           if(conn != null)  {try {conn.close();} catch (SQLException e) {}}
+       }
+   }
+   
+   
+   // 4. 한명의 회원의 정보 조회 DAO
+   public MemberDTO getOneMemberInfo(String id) {
+       
+   	MemberDTO mdto = null;
+       
+   	try {
+   		
+           conn = getConnection();
+           pstmt = conn.prepareStatement("SELECT * FROM MEMBER WHERE ID=?");
+           pstmt.setString(1, id);
+           rs = pstmt.executeQuery();
+           
+           if (rs.next()) {
+           	mdto = new MemberDTO();
+           	mdto.setId(rs.getString("id"));
+           	mdto.setPw(rs.getString("pw"));
+           	mdto.setName(rs.getString("name"));
+           	mdto.setTel(rs.getString("tel"));
+           	mdto.setEmail(rs.getString("email"));
+           	mdto.setField(rs.getString("field"));
+           	mdto.setSkill(rs.getString("skill"));
+           	mdto.setMajor(rs.getString("major"));
+           }
+           
+       } catch (Exception e) {
+           e.printStackTrace();
+       } finally {
+       	if(rs != null) 	  {try {rs.close();}    catch (SQLException e) {}}            
+       	if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
+           if(conn != null)  {try {conn.close();}  catch (SQLException e) {}}
+       }
+   	
+       return mdto;
+   
+   }
+   
+   
+   // 5. 회원 탈퇴 DAO
+   public void deleteMember(String id) {
+   	
+   	try {
+   		
+   		conn = getConnection();
+   		pstmt = conn.prepareStatement("DELETE FROM MEMBER WHERE ID=?");
+   		pstmt.setString(1, id);
+   		pstmt.executeUpdate();
+   		
+   	} catch(Exception e) {
+   		e.printStackTrace();
+   	} finally {
+   		if (pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
+   		if (conn != null) {try {conn.close();} catch (SQLException e) {}}
+   	}
+   	
+   }
+   
+   
+   // 6. 입사지원 DAO
+   public void apply(String id, String field, String skill, String major) {
+
+       try {
+           
+           conn = getConnection();
+           pstmt = conn.prepareStatement("UPDATE MEMBER SET FIELD=?, SKILL=?, MAJOR=? WHERE ID=?");
+           pstmt.setString(1, field);
+           pstmt.setString(2, skill);
+           pstmt.setString(3, major);
+           pstmt.setString(4, id);
+           pstmt.executeUpdate();
+           
+       } catch(Exception e) {
+           e.printStackTrace();
+       } finally {
+       	if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
+           if(conn != null)  {try {conn.close();} catch (SQLException e) {}}
+       }
+       
+   }	
 	
 }

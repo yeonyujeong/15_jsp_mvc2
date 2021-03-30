@@ -59,7 +59,7 @@
 			${id }님, 환영합니다.<br><br>
 			<a href="update.do">입사지원정보 수정</a><br><br>
 			<a href="logout.do">로그 아웃</a><br><br>
-			<a href="delte.do">탈퇴</a><br><br>
+			<a href="delete.do">탈퇴</a><br><br>
 		</c:if>
 		
 		<c:if test="${id eq null}">
